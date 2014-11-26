@@ -1,6 +1,34 @@
 # FX
 ## xubuntu: live is pain
 
+### System information
+
+#### what is my version of xubuntu
+```
+cat /etc/*-release
+```
+
+
+#### Updating, I dunno
+```
+sudo update-manager
+```
+
+### Changing sources
+```
+# copies to backup
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.2014_10_14
+sudo cp -r /etc/apt/sources.list.d/ /etc/apt/sources.list.d.2014_10_14
+
+# restore from backup (only if crap goes to shit):
+sudo rm /etc/apt/sources.list
+sudo rm -r /etc/apt/sources.list.d/
+sudo mv /etc/apt/sources.list.d.2014_10_14/ /etc/apt/sources.list.d
+sudo mv /etc/apt/sources.list.2014_10_14 /etc/apt/sources.list
+```
+
+
+
 ### auto-mounting drives
 #### get drive UUID
 ```
@@ -110,6 +138,7 @@ ln -s /opt/sublime /usr/bin/sublime
 ### git
 ```
 sudo apt-get install git gitk
+git clone https://github.com/richtastic/fx.git
 ```
 
 
