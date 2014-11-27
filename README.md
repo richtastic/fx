@@ -1,6 +1,12 @@
 # FX
 ## xubuntu: live is pain
 
+
+apt-get dist-upgrade
+
+elektron@nucleus:~/Downloads$ sudo apt-get install aptitude
+
+
 ### System information
 
 #### what is my version of xubuntu
@@ -9,10 +15,19 @@ cat /etc/*-release
 ```
 
 
+
+
+
+
 #### Updating, I dunno
 ```
 sudo update-manager
 ```
+
+```
+sudo apt-get install apt-file
+```
+
 
 ### Changing sources
 ```
@@ -139,6 +154,8 @@ ln -s /opt/sublime /usr/bin/sublime
 ```
 sudo apt-get install git gitk
 git clone https://github.com/richtastic/fx.git
+git config --global user.name "Richie"
+git config --global user.email richie@johnrichie.com
 ```
 
 
@@ -155,9 +172,74 @@ sudo apt-get install audacity
 ### Skype
 ```
 sudo dpkg --add-architecture i386
+sudp apt-get update
 sudo apt-get install skype
 # sudo apt-get install -f
+sudo dpkg --force-depends -i ./....deb
+http://askubuntu.com/questions/453368/skype-error-while-loading-shared-libraries-libxv-so-1-cannot-open-shared-obje
 ```
+
+
+ sudo dpkg --force-depends -i ./skype-ubuntu-precise_4.3.0.37-1_i386.deb 
+
+ sudo dpkg --configure -a
+
+# https://uglyduckblog.wordpress.com/2014/01/04/solved-how-to-libv4l-0-32-bit-version-of-in-ubuntu-13-10-64-bit/
+ sudo dpkg --add-architecture i386
+ sudo apt-get update
+ sudo apt-get install libv4l-0:i386
+
+sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+sudo apt-get update 
+sudo apt-get install skype
+
+
+# http://askubuntu.com/questions/293693/how-to-install-skype-with-ubuntu-13-04
+
+
+
+# https://smyl.es/how-to-fix-ubuntudebian-apt-get-404-not-found-package-repository-errors-saucy-raring-quantal-oneiric-natty/
+# https://alselectro.wordpress.com/2014/03/30/ubuntu-13-10solution-to-broken-packages-problem/
+
+sudo apt-get autoremove
+sudo dpkg --configure -a 
+
+
+# http://askubuntu.com/questions/124017/how-do-i-restore-the-default-repositories
+sudo software-properties-gtk
+
+sudo dpkg --configure -a --force-all
+
+
+
+ skype-bin:i386 : Depends: libqtgui4:i386 (>= 4:4.8.0) but it is not going to be installed
+                  Depends: libqtwebkit4:i386 (>= 2.2~2011week36) but it is not going to be installed
+                  Recommends: sni-qt:i386 but it is not going to be installed
+E: Unable to correct problems, you have held broken packages.
+
+
+
+sudo dpkg --configure -a
+sudo apt-get clean
+
+sudo apt-get update -o Acquire::http::No-Cache=true
+
+sudo apt-get upgrade
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### rvm | ruby | gems
 ```
@@ -196,6 +278,14 @@ google-chrome-unstable
 ```
 
 
+### Brasero
+```
+sudo apt-get install cdrdao bchunk
+toc2cue yourfile.toc yourfile.cue
+bchunk yourfile.bin yourfile.cue yourfile.iso
+```
+
+3B-GVJSZJ-R18SDY-JOOB11
 
 ### 3D Printing - Makerbot
 ```
