@@ -355,8 +355,48 @@ REDO       ctr+R
 
 
 
+
+### RECORDING DESKTOP SW
+
+# http://www.maartenbaert.be/simplescreenrecorder/
+sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
+sudo apt-get update
+sudo apt-get install simplescreenrecorder
+# if you want to record 32-bit OpenGL applications on a 64-bit system:
+sudo apt-get install simplescreenrecorder-lib:i386
+
+# something else
+sudo apt-get install recordmydesktop 
+
+
+
+# AUDIO STUFFS:
+~$ gnome-control-center sound
+
+
+sudo apt-get install xfce4-mixer    indicator-sound-gtk2
+
+pulseaudio -k
+
+sudo apt-get install paprefs 
+
+
+
+
+
+
+
+
+
+
 ### terminal / shell color themes
 
+
+
+### run command periodically
+```
+watch -n 1   ls .
+```
 
 
 ### git
