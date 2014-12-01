@@ -383,6 +383,50 @@ sudo apt-get install paprefs
 
 
 
+xfce4-mixer
+
+
+
+
+
+
+#### VHS STUFF
+```
+sudo apt-get install tvtime
+sudo apt-get install transcode
+# http://ubuntuforums.org/showthread.php?t=921233
+sudo apt-get install gnome-terminal
+
+
+
+
+...
+
+v4l-info
+sudo apt-get install v4l-conf
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -659,8 +703,259 @@ gtk-timeout-repeat = 0
 ```
 
 
+
+
+
+
+
+
+### TO RECORD VHS:
+*) hook all inputs (audio/video) into conversion device
+*) hook in USB into slot, and mic into mic slot
+*) to make sure linux is getting a video signal, run: ls /dev/video0
+*) in terminal, run:  tvtime --g 640x360 
+	*) example dimensions are:
+	1.777: 640x360, 800x450, 880x495, 928x522
+	1.333: 400x300, 480x360, 800x600, 1000x750, 1200x900
+*) place tvtime screen in location on desktop to be recorded
+
+*) in another terminal, run: xfce4-mixer
+	*) we want to make sure audio is output thru the system
+    *) maximize "Rear Mic" (or whatever plug you put the audio jack into)
+    *) minimize "Rear Mic Boost" (to remove BG hissing)
+
+*) in another terminal, run: simplescreenrecorder
+    *) select window to record
+    *) record the input audio channel [here: Built-in Audio Analog Stereo]
+    *) select file to save to
+    *) select video format
+    *) select audio format
+    *) show preview to make sure audio and video are as expected
+
+*) DON'T TOUCH ANYTHING WHILE RECORDING
+
+*) When done, pause recording, and save recording to disk
+
+*) convert using ffmpeg in another terminal: (mess with settings)
+	ffmpeg -i ./input.mkv -b 4000k -minrate 4000k -maxrate 4000k output.avi
+
+*) edit in blender
+
+
+
+EXAMPLE SETS:
+	HOME MOVIES:
+		1200x900, mp4+seperate+H.264+rate=24+fast+allow-skip, AAC+128
+
+
+
+
+ffmpeg -i input.mkv output.avi
+
+
+FFMPEG:
+sudo add-apt-repository ppa:jon-severinsson/ffmpeg
+sudo apt-get update
+sudo apt-get install ffmpeg
+sudo apt-get install frei0r-plugins
+
+https://www.ffmpeg.org/ffmpeg.html
+
+AVCONV
+avconv -i input.mkv -codec copy output.mp4
+
+
+
+MENCODER:
+http://www.thelinuxguy.nl/how-tos/how-to-convert-mkv-movies-via-terminal/
+mencoder nameofthemovie.mkv -vf scale=800:430 -ovc xvid -oac copy -xvidencopts bitrate=1200 -sid 1 -of avi -o nameofthemovie.avi
+
+
+
+
+
 ## References
 ```
 http://www.binarytides.com/better-xubuntu-14-04/
 
 ```
+
+
+
+
+gawddamn scroll wheel
+```
+sudo apt-get install imwheel
+killall imwheel
+imwheel --config
+vi ~/.imwheelrc
+imwheel
+# .imwheelrc
+".*"
+None,       Up,     Button4,   5
+None,       Down,   Button5,   5
+```
+
+
+
+
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+v v v v THIS NEEDS TO BE REVIEWED BEFORE INTEGRATING v v v v
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+sudo update-manager
+
+# what is my version of xubuntu
+cat /etc/*-release
+
+
+# AUTO MOUNT DRIVES - http://www.johnrichie.com/zoe/index.php?action=viewPosts&page=1&topic=284
+sudo vi /etc/fstab
+ROOT: 0a5b5f9c-4c15-4f29-8075-6d685dfed68a (sdb3)
+HOME: 70809f69-0aad-488f-9d6c-969f706601b8 (sdb4)
+
+# CREATE SWAP FILE (/swapfile0)
+sudo dd if=/dev/zero of=/swapfile0 bs=1024 count=83388608
+mkswap /swapfile0
+chown root:root /swapfile0
+chmod 0600 /swapfile-
+swapon /swapfile
+vi /etc/fstab
+>>> ADD LINE: /swapfile0 swap swap defaults 0 0
+
+sudo dd if=/dev/zero of=/swapfile0 bs=1024 count=83388608
+
+# LINK TEMP DIRECTORY TO STANDARD HDD
+sudo rm /tmp
+sudo ln -s /home/tmp /tmp
+
+# LINK HOME DIRECTORY TO STANDARD HDD
+70809f69-0aad-488f-9d6c-969f706601b8
+
+# VIM
+sudo apt-get install vim
+vi ~/.vimrc
+highlight comment ctermfg=lightblue
+# CHROME
+sudo apt-get install chromium-browser
+# SYSTEM MONITOR
+sudo apt-get install gnome-system-monitor
+# SYNAPTIC
+sudo apt-get install synaptic
+#RESTRICTED
+sudo apt-get install xubuntu-restricted-extras
+sudo /usr/share/doc/libdvdread4/install-css.sh
+# JAVA - http://www.ubuntugeek.com/how-to-install-oracle-java-7-in-ubuntu-12-04.html
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java7-installer
+? http://openjdk.java.net/install
+# MEDIA PLAYER
+sudo apt-get install vlc
+sudo apt-get install totem
+# MINECRAFT:
+google minecraft
+java -jar Minecraft.jar
+# MINECRAFT 2
+http://www.technicpack.net/download
+# TEAMSPEAK:
+google teamspeak, download, run ./run, executable
+# STEAM:
+https://developer.valvesoftware.com/wiki/Steam_under_Linux
+#BLENDER
+blender.com
+#VIRTUALBOX
+sudo apt-get install virtualbox
+	# latest version
+
+#GIT
+sudo apt-get install git
+#APACHE2:  http://www.howtogeek.com/howto/ubuntu/installing-php5-and-apache-on-ubuntu/
+sudo apt-get install apache2
+#PHP5
+sudo apt-get install php5
+sudo apt-get install libapache2-mod-php5
+sudo /etc/init.d/apache2 restart
+#MYSQL
+#SQLITE
+
+#MONGO
+
+# FLASH PLAYER ...........................................................................................
+uname -a
+http: http://get.adobe.com/flashplayer/?no_redirect
+adobe-flashplugin
+
+# FIX 1: http://grumpymole.blogspot.com/2006/10/ubuntu-firefox-flash-crash-this-fix.html
+sudo vi /usr/bin/firefox
+# MOZ_PROGRAM=...
+export XLIB_SKIP_ARGB_VISUALS=1
+
+# ATTEMPT 2: http://askubuntu.com/questions/122306/flash-does-not-work-with-the-latest-update
+wget http://archive.canonical.com/pool/partner/a/adobe-flashplugin/adobe-flashplugin_10.2.159.1-0natty1_i386.deb
+sudo dpkg -i adobe-flashplugin_10.2.159.1-0natty1_i386.deb
+OR
+wget http://archive.canonical.com/pool/partner/a/adobe-flashplugin/adobe-flashplugin_10.2.159.1.orig.tar.gz
+cp libflashplayer.so to /usr/lib/flashplugin-installer/
+
+sudo apt-get remove flashplayer
+
+http://www.omgubuntu.co.uk/2012/02/adobe-adandons-flash-on-linux/
+
+older version of Flash (11.1)
+
+XFCE: http://mirror.pnl.gov/ubuntu//pool/universe/x/xfce4-session/xfce4-session_4.10.0-2ubuntu1_amd64.deb
+
+
+dpkg -l | grep -i flash
+
+ xfce4-session 
+
+http://support.mozilla.org/en-US/kb/install-firefox-linux
+
+http://www.everydaylinuxuser.com/2012/12/20-applications-to-improve-xubuntu.html
+
+https://bugs.launchpad.net/ubuntu/+source/xfce4-session/+bug/1104435
+
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+
+
+
+
+
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda5 during installation
+UUID=a2437ead-de3f-4394-adab-a91684be160f /               ext4    errors=remount-ro 0       1
+# /boot was on /dev/sda1 during installation
+UUID=666dc558-3d17-4ade-a2ee-5736bad385bf /boot           ext4    defaults        0       2
+
+# ADDED FOR MOUNTING 'OLD DRIVES' -RICHIE
+UUID=70809f69-0aad-488f-9d6c-969f706601b8 /home ext4 defaults 0 0
+#/dev/sdb4 /media/elektron/70809f69-0aad-488f-9d6c-969f706601b8 ext4 rw,nosuid,nodev,uhelper=udisks2 0 0
+
+
+
+
+
+# CREATE SWAP FILE (/home/swapfile0) - http://www.cyberciti.biz/faq/linux-add-a-swap-file-howto/
+sudo dd if=/dev/zero of=/home/swapfile0 bs=1024 count=8388608
+sudo mkswap /home/swapfile0
+sudo chown root:root /home/swapfile0
+sudo chmod 0600 /home/swapfile0
+sudo swapon /home/swapfile0
+sudo vi /etc/fstab
+>>> ADD LINE: /home/swapfile0 swap swap defaults 0 0
+sudo shutdown -r now
+free -m
+
+
