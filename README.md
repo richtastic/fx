@@ -710,36 +710,37 @@ gtk-timeout-repeat = 0
 
 
 ### TO RECORD VHS:
-*) hook all inputs (audio/video) into conversion device
-*) hook in USB into slot, and mic into mic slot
-*) to make sure linux is getting a video signal, run: ls /dev/video0
-*) in terminal, run:  tvtime --g 640x360 
-	*) example dimensions are:
-	1.777: 640x360, 800x450, 880x495, 928x522
-	1.333: 400x300, 480x360, 800x600, 1000x750, 1200x900
-*) place tvtime screen in location on desktop to be recorded
+- hook all inputs (audio/video) into conversion device
+- hook in USB into slot, and mic into mic slot
+    - to make sure linux is getting a video signal, run: ls /dev/video0
+- in terminal, run:  tvtime --g 1200x900
+	- example dimensions are:
+	   - 1.777: 640x360, 800x450, 880x495, 928x522
+	   - 1.333: 400x300, 480x360, 800x600, 1000x750, 1200x900
+    - place tvtime screen in location on desktop to be recorded
 
-*) in another terminal, run: xfce4-mixer
-	*) we want to make sure audio is output thru the system
-    *) maximize "Rear Mic" (or whatever plug you put the audio jack into)
-    *) minimize "Rear Mic Boost" (to remove BG hissing)
+- in another terminal, run: xfce4-mixer
+	- we want to make sure audio is output thru the system
+    - maximize "Rear Mic" (or whatever plug you put the audio jack into)
+    - minimize "Rear Mic Boost" (to remove BG hissing)
 
-*) in another terminal, run: simplescreenrecorder
-    *) select window to record
-    *) record the input audio channel [here: Built-in Audio Analog Stereo]
-    *) select file to save to
-    *) select video format
-    *) select audio format
-    *) show preview to make sure audio and video are as expected
+- in another terminal, run: simplescreenrecorder
+    - select window to record (tvtime window)
+    - record the input audio channel [here: Built-in Audio Analog Stereo]
+    - select file to save to (browse to directory and name: out.mp4)
+    - select video format: MP4
+        - checkmark 'seperate file per segment'
+    - select audio format: AAC 128bps
+    - show preview to make sure audio and video are as expected
 
-*) DON'T TOUCH ANYTHING WHILE RECORDING
+- DON'T TOUCH ANYTHING WHILE RECORDING
 
-*) When done, pause recording, and save recording to disk
+- When done, pause recording, and save recording to disk
 
-*) convert using ffmpeg in another terminal: (mess with settings)
+- convert using ffmpeg in another terminal: (mess with settings)
 	ffmpeg -i ./input.mkv -b 4000k -minrate 4000k -maxrate 4000k output.avi
 
-*) edit in blender
+- edit in blender
 
 
 
@@ -750,26 +751,29 @@ EXAMPLE SETS:
 
 
 
-ffmpeg -i input.mkv output.avi
-
 
 FFMPEG:
+```
 sudo add-apt-repository ppa:jon-severinsson/ffmpeg
 sudo apt-get update
 sudo apt-get install ffmpeg
 sudo apt-get install frei0r-plugins
 
-https://www.ffmpeg.org/ffmpeg.html
+# https://www.ffmpeg.org/ffmpeg.html
+ffmpeg -i input.mkv output.avi
+```
 
 AVCONV
+```
 avconv -i input.mkv -codec copy output.mp4
-
+```
 
 
 MENCODER:
+```
 http://www.thelinuxguy.nl/how-tos/how-to-convert-mkv-movies-via-terminal/
 mencoder nameofthemovie.mkv -vf scale=800:430 -ovc xvid -oac copy -xvidencopts bitrate=1200 -sid 1 -of avi -o nameofthemovie.avi
-
+```
 
 
 
