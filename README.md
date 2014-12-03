@@ -167,6 +167,13 @@ sudo apt-get install octave
 ### audacity
 ```
 sudo apt-get install audacity
+
+# RECORD SYSTEM AUDIO:
+$ audacity
+audacity: alsa | default | default:Line0 | Stereo input
+audacity: > record
+$ pavucontrol
+pavucontrol: > recording > dropdown: Monitor of Built-in Audio Analog Stereo
 ```
 
 ### Skype
@@ -228,6 +235,100 @@ sudo apt-get upgrade
 
 
 
+
+
+
+### formatting external HDD
+```
+# show current disk info
+sudo fdisk -l /dev/sdf1
+...
+Disk /dev/sdf: 2000.4 GB, 2000398934016 bytes
+255 heads, 63 sectors/track, 243201 cylinders, total 3907029168 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x55b7af33
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdf1              64  3907029119  1953514528    7  HPFS/NTFS/exFAT
+...
+
+# unmount
+sudo umount /dev/sdf
+
+# start fdisk
+sudo fdisk /dev/sdf
+
+# create new partition table
+o
+
+# create new partition (1)
+n
+# type: primary
+p
+# partition number
+1
+# first sector
+2048
+# last sector (half here)
+1953514527
+
+# create new partition (2)
+n
+# type: primary
+p
+# partition number
+2
+# first sector (start after half here)
+1953514528
+# last sector (end here)
+<ENTER>
+
+# list table
+p
+...
+     Device Boot      Start         End      Blocks   Id  System
+/dev/sdf1p1            2048  1953514527   976756240   83  Linux
+/dev/sdf1p2      1953514528  3907029055   976757264   83  Linux
+...
+
+# change listed type (l to list all hex codes)
+# 7 for HPFS/NTFS/exFAT
+# first
+t | 1 | 7
+# second
+t | 2 | 7
+
+# write changes & quit
+w
+
+# WARNING: Re-reading the partition table failed with error 22: Invalid argument.
+# The kernel still uses the old table. The new table will be used at
+# the next reboot or after you run partprobe(8) or kpartx(8)
+sudo partprobe # does nothing
+sudo shutdown -r now # need to restart and do it all again
+
+# when done linux SHOULD now show all the new partitions as: /dev/sdf1, /dev/sdf2, ...
+
+
+# simple (fast) allocation with disk name/label
+sudo mkfs.ntfs --verbose --label Antiquity --fast /dev/sdf1
+sudo mkfs.ntfs --verbose --label Memento   --fast /dev/sdf2
+
+# http://www.howtogeek.com/106873/how-to-use-fdisk-to-manage-partitions-on-linux/
+# http://blog.onetechnical.com/2009/06/09/format-an-ntfs-drive-in-ubuntu/
+```
+
+
+
+### Format info
+
+format | max drive size | max file size | max no files |
+----------------------
+FAT16 | 4GB | 2^32 - 1 bytes | 2^16 | 
+FAT32 | 32GB | 2^32 - 1 bytes | ~4 million | 
+NTFS  | 2^64 alloc. units (2^32 implementation) | 2^64 bytes (2^44 bytes implementation) | 2^32 - 1
 
 
 
@@ -384,6 +485,12 @@ sudo apt-get install paprefs
 
 
 xfce4-mixer
+sudo apt-get install xfce4-mixer
+
+alsamixer
+
+
+
 
 
 
