@@ -235,6 +235,12 @@ git config --global user.email richie@johnrichie.com
 sudo apt-get install octave
 ```
 
+#### CD Ripping (WAV)
+```
+sudo apt-get install ripperx
+
+```
+
 #### audacity
 ```
 sudo apt-get install audacity
