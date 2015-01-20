@@ -1,5 +1,5 @@
 # FX
-## xubuntu: live is pain
+## xubuntu: life is pain
 
 
 apt-get dist-upgrade
@@ -345,12 +345,43 @@ NTFS  | 2^64 alloc. units (2^32 implementation) | 2^64 bytes (2^44 bytes impleme
 ### rvm | ruby | gems
 ```
 # http://rvm.io/rvm/install
+# x: sudo apt-get install  gpg | mac: brew install gpg
 gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
 \curl -sSL https://get.rvm.io | bash -s stable --ruby
-source /home/phoebe/.rvm/scripts/rvm
+source ~/.rvm/scripts/rvm
+
+# get ruby info
+rvm list
+rvm list known
+rvm install 2.1.2
+# rvm reinstall ruby-2.2.0
+
+# switch to system ruby
+rvm use sytem
+
+# switch to ruby version
+rvm rubies
+rvm use ruby-2.1.2 
+rvm use ruby-2.2.0 
+
+# gemsets - https://rvm.io/gemsets/basics
+rvm gemset create default
+rvm gemset use default
+
+# show installed gems in gemset
+gem list
+
+# install gems
 gem install zip mongo nokogiri bundler chef
 
 ```
+
+
+
+
+
+
+
 
 
 ### mongo
