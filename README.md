@@ -228,6 +228,12 @@ sudo apt-get install git gitk
 git clone https://github.com/richtastic/fx.git
 git config --global user.name "Richie"
 git config --global user.email richie@johnrichie.com
+
+# stop asking for my username/password
+vi .git/config
+# [remote "origin"] ...
+ssh://git@bla.com/bla/repo.git
+
 ```
 
 #### octave
@@ -389,6 +395,10 @@ rvm list known
 rvm install 2.1.2
 # rvm reinstall ruby-2.2.0
 
+# set a default ruby version
+rvm alias create default ruby-2.1.2
+rvm use default
+
 # switch to system ruby
 rvm use sytem
 
@@ -405,11 +415,9 @@ rvm gemset use default
 gem list
 
 # install gems
-gem install zip mongo nokogiri bundler chef
+gem install zip mongo nokogiri bundler chef cocoapods
 
 ```
-
-
 
 
 
@@ -587,6 +595,12 @@ watch -n 1   ls .
 ### git
 ```
 sudo apt-get install git
+# force untracked files overwrite:
+git fetch --all
+git reset --hard origin/master 
+
+# example project/.gitignore
+
 ```
 
 #### start a repo
@@ -873,6 +887,9 @@ sudo apt-get install ffmpeg
 sudo apt-get install frei0r-plugins
 # https://www.ffmpeg.org/ffmpeg.html
 ffmpeg -i input.mkv output.avi
+ffmpeg -i infile.wmv out.mpeg
+ffmpeg -i ./boot.wmv -qscale 0 boot.mpeg
+ffmpeg -i ./boot.wmv -b 500k boot.mpeg
 ```
 
 #### AVCONV
