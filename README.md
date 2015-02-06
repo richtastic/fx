@@ -843,11 +843,12 @@ gtk-timeout-repeat = 0
 - hook all inputs (audio/video) into conversion device
 - hook in USB into slot, and mic into mic slot
     - to make sure linux is getting a video signal, run: ls /dev/video0
-- in terminal, run:  tvtime --g 1200x900
+- in terminal, run:  tvtime --g 1200x900 [--input=1]
     - example dimensions are:
        - 1.777: 640x360, 800x450, 880x495, 928x522
        - 1.333: 400x300, 480x360, 800x600, 1000x750, 1200x900
     - place tvtime screen in location on desktop to be recorded
+    (if blank screen, it might be grabbing source s-video or V/L/R, append "--input=1" to command)
 
 - in another terminal, run: xfce4-mixer
     - we want to make sure audio is output thru the system
