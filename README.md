@@ -1,5 +1,5 @@
 # FX
-## xubuntu: live is pain
+## xubuntu: life is pain
 
 
 ### system info
@@ -228,6 +228,12 @@ sudo apt-get install git gitk
 git clone https://github.com/richtastic/fx.git
 git config --global user.name "Richie"
 git config --global user.email richie@johnrichie.com
+
+# stop asking for my username/password
+vi .git/config
+# [remote "origin"] ...
+ssh://git@bla.com/bla/repo.git
+
 ```
 
 #### octave
@@ -408,12 +414,45 @@ NTFS  | 2^64 alloc. units (2^32 implementation) | 2^64 bytes (2^44 bytes impleme
 #### rvm | ruby | gems
 ```
 # http://rvm.io/rvm/install
+# x: sudo apt-get install  gpg | mac: brew install gpg
 gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
 \curl -sSL https://get.rvm.io | bash -s stable --ruby
-source /home/phoebe/.rvm/scripts/rvm
-gem install zip mongo nokogiri bundler chef
+source ~/.rvm/scripts/rvm
+
+# get ruby info
+rvm list
+rvm list known
+rvm install 2.1.2
+# rvm reinstall ruby-2.2.0
+
+# set a default ruby version
+rvm alias create default ruby-2.1.2
+rvm use default
+
+# switch to system ruby
+rvm use sytem
+
+# switch to ruby version
+rvm rubies
+rvm use ruby-2.1.2 
+rvm use ruby-2.2.0 
+
+# gemsets - https://rvm.io/gemsets/basics
+rvm gemset create default
+rvm gemset use default
+
+# show installed gems in gemset
+gem list
+
+# install gems
+gem install zip mongo nokogiri bundler chef cocoapods
 
 ```
+
+
+
+
+
 
 
 ### mongo
@@ -586,6 +625,12 @@ watch -n 1   ls .
 ### git
 ```
 sudo apt-get install git
+# force untracked files overwrite:
+git fetch --all
+git reset --hard origin/master 
+
+# example project/.gitignore
+
 ```
 
 #### start a repo
@@ -828,11 +873,12 @@ gtk-timeout-repeat = 0
 - hook all inputs (audio/video) into conversion device
 - hook in USB into slot, and mic into mic slot
     - to make sure linux is getting a video signal, run: ls /dev/video0
-- in terminal, run:  tvtime --g 1200x900
+- in terminal, run:  tvtime --g 1200x900 [--input=1]
     - example dimensions are:
        - 1.777: 640x360, 800x450, 880x495, 928x522
        - 1.333: 400x300, 480x360, 800x600, 1000x750, 1200x900
     - place tvtime screen in location on desktop to be recorded
+    (if blank screen, it might be grabbing source s-video or V/L/R, append "--input=1" to command)
 
 - in another terminal, run: xfce4-mixer
     - we want to make sure audio is output thru the system
@@ -872,6 +918,9 @@ sudo apt-get install ffmpeg
 sudo apt-get install frei0r-plugins
 # https://www.ffmpeg.org/ffmpeg.html
 ffmpeg -i input.mkv output.avi
+ffmpeg -i infile.wmv out.mpeg
+ffmpeg -i ./boot.wmv -qscale 0 boot.mpeg
+ffmpeg -i ./boot.wmv -b 500k boot.mpeg
 ```
 
 #### AVCONV
