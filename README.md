@@ -222,6 +222,12 @@ ln -s /opt/sublime_text_3/sublime_text /opt/sublime
 ln -s /opt/sublime /usr/bin/sublime
 ```
 
+#### ssh keys
+```
+ssh-keygen -t rsa
+cat ~/.ssh/id_rsa.pub
+```
+
 #### git
 ```
 sudo apt-get install git gitk
