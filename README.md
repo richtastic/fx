@@ -487,7 +487,14 @@ makerware
 #### image tools - some of these suck, but what are you gonna do
 ```
 sudo apt-get install imagemagick
+# brew install imagemagick
+
 convert ./....
+
+# grayscale
+convert in.jpg -colorspace Gray out.png # grayscale
+convert in.jpg -monochrome out.png # B&W dotted
+convert in.jpg -separate outRGB.png # red | green | blue as greyscale
 
 ```
 
@@ -615,6 +622,23 @@ git add ./README.md
 git commit -m"fx"
 git remote add origin https://github.com/richtastic/fx.git
 git push -u origin master
+```
+
+#### start an .io project page
+```
+mkdir ff_project
+cd ff_project/
+git clone git@github.com:richtastic/ff.git
+cd ff
+git checkout --orphan gh-pages
+git rm -rf .
+
+echo "My Page" > index.html
+git add index.html
+git commit -a -m "First pages commit"
+git push origin gh-pages
+
+https://richtastic.github.io/ff
 ```
 
 
@@ -1084,3 +1108,59 @@ sudo shutdown -r now
 free -m
 
 ```
+
+
+
+
+
+# WORDPRESS
+https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-on-ubuntu-14-04
+
+### additional SW
+```
+sudo apt-get install php5-gd libssh2-php
+sudo apt-get install php5-mysql
+```
+
+### include sql in php
+```
+vi /etc/php5/apache2/php.ini
+# extension_dir = "/usr/lib/php5/20131226"
+# extension=mysql.so
+```
+
+### create db user pass
+```
+mysql -u root -p
+create database wordpress;
+create user wordpressuser@localhost identified by 'qwerty';
+grant all privileges ON wordpress.* to wordpressuser@localhost;
+flush privileges;
+exit
+```
+
+### install wordpress
+```
+cd ~
+wget http://wordpress.org/latest.tar.gz
+tar xzvf latest.tar.gz
+cd ~/wordpress
+cp wp-config-sample.php wp-config.php
+vi wp-config.php # db user pass
+sudo rsync -avP ~/wordpress/ /var/www/html/
+```
+
+### debug tests
+```
+php -v # php errors/warnings
+sudo /etc/init.d/apache2 restart
+/etc/init.d/mysql start
+/etc/init.d/mysql status
+dpkg --list | grep php5-mysql
+```
+
+
+
+
+
+
