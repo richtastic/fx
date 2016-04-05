@@ -222,6 +222,12 @@ ln -s /opt/sublime_text_3/sublime_text /opt/sublime
 ln -s /opt/sublime /usr/bin/sublime
 ```
 
+#### ssh keys
+```
+ssh-keygen -t rsa
+cat ~/.ssh/id_rsa.pub
+```
+
 #### git
 ```
 sudo apt-get install git gitk
@@ -288,8 +294,38 @@ sudo apt-get install skype
 ```
 
 
+#### formatting xubuntu drive example:
+```
+# find out where things are mounted
+cat /proc/mounts
+mount -l
+# unmount partition
+sudo umount /dev/sda1
+# create new partition if desired
+sudo fdisk /dev/sda
+...
+# format to ext4
+mkfs.ext4 /dev/sda1
+# remount
+sudo mount /dev/sda1 /media/phoebe/media/
+# permissions
+sudo chmod -R 0777 /media/phoebe/media/
+# open
+thunar /media/phoebe/media/
+```
+
+
+#### randomize HDD
+```
+...
+cd /media/phoebe/legacy2/legacy2/other/HDDwarez/randomize
+erashure.c
+```
+
+
 #### formatting HDD
 ```
+# https://ext4.wiki.kernel.org/index.php/Ext4_Howto
 # show current disk info
 sudo fdisk -l /dev/sdf1
 ...
