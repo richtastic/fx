@@ -176,6 +176,27 @@ sudo service apache2 restart
 sudo apt-get install php5
 ```
 
+#### php error logging - debugging
+```
+sudo gedit /etc/php5/apache2/php.ini
+
+error_log=/var/log/php_errors.log
+log_errors=On
+track_errors=On
+error_reporting=E_ALL
+
+//ini_set("log_errors", 1);
+//ini_set("error_log", "/var/log/php_errors.log");
+error_log("HAI".time());
+echo "errored: ".time();
+
+
+tail -f /var/log/php_errors.log
+
+
+```
+
+
 #### mysql
 ```
 sudo apt-get install mysql
