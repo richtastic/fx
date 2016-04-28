@@ -178,22 +178,28 @@ sudo apt-get install php5
 
 #### php error logging - debugging
 ```
+ubuntu default: /var/log/apache2/error.log
+
+# change permissions
+sudo chown www-data: /var/log/php_errors.log
+chmod +rw /var/log/php_errors.log
+sudo chmod +rw /var/log/php_errors.log
+tail -f /var/log/php_errors.log
+
+# php settings
 sudo gedit /etc/php5/apache2/php.ini
 
-error_log=/var/log/php_errors.log
-log_errors=On
-track_errors=On
-error_reporting=E_ALL
+error_log = /var/log/php_errors.log
+log_errors = On
+track_errors = On
+error_reporting = E_ALL | E_STRICT
 
 //ini_set("log_errors", 1);
 //ini_set("error_log", "/var/log/php_errors.log");
-error_log("HAI".time());
+error_log("HAI - ".time());
 echo "errored: ".time();
 
-
 tail -f /var/log/php_errors.log
-
-
 ```
 
 
@@ -314,6 +320,13 @@ sudo apt-get install skype
 # http://askubuntu.com/questions/293693/how-to-install-skype-with-ubuntu-13-04
 ```
 
+#### startup USB
+```
+sudo apt-get install usb-creator-gtk
+usb-creator-gtk
+> choose from .iso
+> choose to USB
+```
 
 #### formatting xubuntu drive example:
 ```
