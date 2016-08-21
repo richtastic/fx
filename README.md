@@ -543,12 +543,10 @@ bchunk yourfile.bin yourfile.cue yourfile.iso
 
 #### 3D Printing - Makerbot
 ```
-https://www.makerbot.com/support/new/Desktop/01_MakerBot_Desktop_Knowledge_Base/Using_MakerBot_Desktop/01-Getting_Started/How_to_Install_MakerBot_Desktop_for_Linux
-lsb_release -c -s # trusty
-sudo apt-add-repository 'deb http://downloads.makerbot.com/makerware/ubuntu trusty main'
+# http://support.makerbot.com/learn/makerbot-desktop-software/installation-and-setup/how-to-install-makerbot-desktop-for-linux_11262
+sudo apt-add-repository "http://downloads.makerbot.com/makerware/ubuntu"
 wget http://downloads.makerbot.com/makerware/ubuntu/dev@makerbot.com.gpg.key
 sudo apt-key add dev@makerbot.com.gpg.key
-sudo apt-get update
 sudo apt-get install makerware
 makerware
 ```
