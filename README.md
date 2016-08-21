@@ -269,6 +269,26 @@ ssh://git@bla.com/bla/repo.git
 
 ```
 
+#### lftp
+```
+sudo apt-get install lftp
+mkdir ~/.lftp
+echo "set ssl:verify-certificate no" > ~/.lftp/rc
+# set ssl:check-hostname no
+
+# LFTP HOWTO
+open -u usernameHere,passwordHere ftp.website.com
+
+lpwd # LOCAL PWD
+pwd # REMOTE PWD
+
+lcd LOCAL-DIRECTORY # LOCAL CD
+cd REMOTE-DIRECTORY # REMOTE CD
+
+mirror -R LOCAL-DIRECTORY REMOTE-DIRECTORY # RECURSIVE COPY FROM LOCAL TO REMOTE
+mirror REMOTE-DIRECTORY LOCAL-DIRECTORY # RECURSIVE COPY FROM REMOTE TO LOCAL
+```
+
 #### octave
 ```
 sudo apt-get install octave
