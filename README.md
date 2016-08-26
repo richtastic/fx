@@ -253,6 +253,11 @@ ln -s /opt/sublime /usr/bin/sublime
 ```
 ssh-keygen -t rsa
 cat ~/.ssh/id_rsa.pub
+
+ssh-add -D # delete all
+ssh-add -l # list
+ssh-add ~/.ssh/id_rsa_next_key
+# https://gist.github.com/jexchan/2351996
 ```
 
 #### git
