@@ -258,6 +258,10 @@ ssh-add -D # delete all
 ssh-add -l # list
 ssh-add ~/.ssh/id_rsa_next_key
 # https://gist.github.com/jexchan/2351996
+
+git config user.email richie@johnrichie.com
+git config user.name richie
+
 ```
 
 #### git
@@ -1205,7 +1209,12 @@ free -m
 ```
 
 
-
+# CUT A FILE UP TO MULTIPLE BINARIES:
+```
+cd ~/tempFolder
+split  -b 100m  -a 8  -d  --verbose  ~/myfile.bin
+cat ./x* > ~/myfile.bin
+`
 
 
 # WORDPRESS
