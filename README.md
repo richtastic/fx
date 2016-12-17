@@ -247,6 +247,7 @@ tar -vxf ./sublime_text_3_build_3065_x64.tar.bz2
 mv sublime_text_3/ /opt/
 ln -s /opt/sublime_text_3/sublime_text /opt/sublime
 ln -s /opt/sublime /usr/bin/sublime
+sudo chmod 777 ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings 
 ```
 
 #### ssh keys
@@ -275,6 +276,8 @@ git config --global user.email richie@johnrichie.com
 vi .git/config
 # [remote "origin"] ...
 ssh://git@bla.com/bla/repo.git
+
+git config --global core.editor "vim"
 
 ```
 
@@ -572,12 +575,10 @@ bchunk yourfile.bin yourfile.cue yourfile.iso
 
 #### 3D Printing - Makerbot
 ```
-https://www.makerbot.com/support/new/Desktop/01_MakerBot_Desktop_Knowledge_Base/Using_MakerBot_Desktop/01-Getting_Started/How_to_Install_MakerBot_Desktop_for_Linux
-lsb_release -c -s # trusty
-sudo apt-add-repository 'deb http://downloads.makerbot.com/makerware/ubuntu trusty main'
+# http://support.makerbot.com/learn/makerbot-desktop-software/installation-and-setup/how-to-install-makerbot-desktop-for-linux_11262
+sudo apt-add-repository "http://downloads.makerbot.com/makerware/ubuntu"
 wget http://downloads.makerbot.com/makerware/ubuntu/dev@makerbot.com.gpg.key
 sudo apt-key add dev@makerbot.com.gpg.key
-sudo apt-get update
 sudo apt-get install makerware
 makerware
 ```
@@ -1220,6 +1221,8 @@ cat ./x* > ~/myfile.bin
 # WORDPRESS
 https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-on-ubuntu-14-04
 
+
+
 ### additional SW
 ```
 sudo apt-get install php5-gd libssh2-php
@@ -1245,13 +1248,27 @@ exit
 
 ### install wordpress
 ```
-cd ~
+cd ~/Downloads/
+
 wget http://wordpress.org/latest.tar.gz
+
 tar xzvf latest.tar.gz
-cd ~/wordpress
+
+cp -r ./wordpress /var/www/html/wp
+
+
+cd /var/www/httl/wp
 cp wp-config-sample.php wp-config.php
 vi wp-config.php # db user pass
-sudo rsync -avP ~/wordpress/ /var/www/html/
+#sudo rsync -avP ~/wordpress/ /var/www/html/
+```
+
+
+```
+# /etc/php5/apache2/php.ini
+extension=mysql.so
+...
+extension_dir = "/usr/lib/php5/20151012"
 ```
 
 ### debug tests
@@ -1264,6 +1281,15 @@ dpkg --list | grep php5-mysql
 ```
 
 
+### TOOLS:
+```
+# PHP PARSER CHECKER
+http://phpcodechecker.com/
+# JSON PARSER CHECKER
+jsonlint.com
+# 
+
+```
 
 
 
