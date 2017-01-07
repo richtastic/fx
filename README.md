@@ -110,6 +110,19 @@ export PATH=$PATH:/opt
 ### drivers
 
 #### nVidia
+http://nlug.ml1.co.uk/2016/02/an-almost-authoritative-guide-to-nvidia-prime-and-bumblebee/5065
+```
+
+# http://nlug.ml1.co.uk/2016/02/an-almost-authoritative-guide-to-nvidia-prime-and-bumblebee/5065
+sudo apt-get purge .*nvidia.* bumblebee.* .*primus.*
+sudo apt-get --purge autoremove
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt-get update
+sudo apt-get [dist-]upgrade
+sudo apt install nvidia-352 nvidia-prime nvidia-settings
+```
+
+OLDER:
 ```
 sudo apt-get install nvidia-current
 sudo nvidia-settings
@@ -173,7 +186,7 @@ sudo service apache2 restart
 
 #### php
 ```
-sudo apt-get install php5
+sudo apt-get install php
 ```
 
 #### php error logging - debugging
@@ -205,7 +218,6 @@ tail -f /var/log/php_errors.log
 
 #### mysql
 ```
-sudo apt-get install mysql
 sudo apt-get install mysql-server mysql-client
 mysql -u root -p
 
@@ -1221,18 +1233,26 @@ cat ./x* > ~/myfile.bin
 # WORDPRESS
 https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-on-ubuntu-14-04
 
+```
+cd ~/Downloads
+wget https://wordpress.org/latest.zip
+unzip ./wordpress-4.7.zip
+sudo cp -r ./wordpress /var/www/html/
 
+```
 
 ### additional SW
 ```
-sudo apt-get install php5-gd libssh2-php
-sudo apt-get install php5-mysql
+# see php (7+)
+
+sudo apt-get install php-mail # this do anything?
+sudo apt-get install php-mysql
 ```
 
 ### include sql in php
 ```
 vi /etc/php5/apache2/php.ini
-# extension_dir = "/usr/lib/php5/20131226"
+
 # extension=mysql.so
 ```
 
@@ -1244,20 +1264,18 @@ create user wordpressuser@localhost identified by 'qwerty';
 grant all privileges ON wordpress.* to wordpressuser@localhost;
 flush privileges;
 exit
+# mysql -u wordpressuser -p
 ```
 
 ### install wordpress
 ```
 cd ~/Downloads/
-
 wget http://wordpress.org/latest.tar.gz
-
 tar xzvf latest.tar.gz
-
 cp -r ./wordpress /var/www/html/wp
 
 
-cd /var/www/httl/wp
+cd /var/www/html/wp
 cp wp-config-sample.php wp-config.php
 vi wp-config.php # db user pass
 #sudo rsync -avP ~/wordpress/ /var/www/html/
@@ -1266,9 +1284,11 @@ vi wp-config.php # db user pass
 
 ```
 # /etc/php5/apache2/php.ini
+# /etc/php/7.0/apache2/php.ini 
+# extension_dir = "/usr/lib/php5/20131226"
+# extension_dir = "/usr/lib/php5/20151012" # unnecessary
 extension=mysql.so
-...
-extension_dir = "/usr/lib/php5/20151012"
+extension=mysqli.so # ?
 ```
 
 ### debug tests
@@ -1277,7 +1297,8 @@ php -v # php errors/warnings
 sudo /etc/init.d/apache2 restart
 /etc/init.d/mysql start
 /etc/init.d/mysql status
-dpkg --list | grep php5-mysql
+# dpkg --list | grep php5-mysql
+dpkg --list | grep php.*mysql
 ```
 
 
@@ -1290,7 +1311,7 @@ jsonlint.com
 # 
 
 ```
-
+ 
 
 
 
