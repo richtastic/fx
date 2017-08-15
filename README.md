@@ -184,6 +184,21 @@ sudo vi ./sites-available/000-default.conf
 sudo service apache2 restart
 ```
 
+#### apache mac
+```
+# https://jason.pureconcepts.net/2012/10/install-apache-php-mysql-mac-os-x/
+sudo su 
+apachectl start
+cd /etc/apache2/
+cp httpd.conf httpd.conf.bak
+vi httpd.conf
+LoadModule php5_module libexec/apache2/libphp5.so # uncomment
+apachectl restart
+# ROOT: 
+/Library/WebServer/Documents/
+ sudo ln -s ~/dev/extRepos/ff/src/ /Library/WebServer/Documents/ff
+```
+
 #### php
 ```
 sudo apt-get install php
