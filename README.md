@@ -1329,4 +1329,37 @@ jsonlint.com
  
 
 
+### ENCRYPTION / DECRYPTION
+```ssh
+# CREATE PRIVATE KEY
+echo "password" -n > ./passphrase.txt
+echo "clear text" -n > ./data.txt
+openssl genrsa -aes128 -passout file:passphrase.txt -out rsa_private_key.pem 2048 # practical
+# CREATE PUBLIC KEY
+openssl rsa -in rsa_private_key.pem -passin file:passphrase.txt -out rsa_public_key.pem -outform PEM -pubout
+# GENERATE PASSWORD
+# openssl rand -base64 2049 -out aes_password # too big
+# openssl rand -base64 180 -out aes_password # ASCII
+openssl rand 245 -out aes_password # binary
+
+
+# ENCRYPT PASSWORD
+openssl rsautl -encrypt -inkey rsa_public_key.pem -pubin -in aes_password -out aes_password.ssl
+
+# DECRYPT
+openssl rsautl -decrypt -inkey rsa_private_key.pem  -passin file:passphrase.txt -in aes_password.ssl -out decrypted_aes
+
+# ENCRYPT DATA
+openssl aes-256-cbc  -kfile decrypted_aes  -in ./data.txt -out encrypted_data.txt
+
+# DECRYPT DATA
+openssl aes-256-cbc  -d  -kfile decrypted_aes  -in ./encrypted_data.txt -out decrypted_data.txt
+
+
+# USE ENCRYPTION KEY
+openssl aes-256-cbc  -kfile aes_password  -in ./data.txt -out encrypted_data.txt
+openssl aes-256-cbc  -d  -kfile aes_password  -in ./encrypted_data.txt -out decrypted_data.txt
+ ```
+
+
 
