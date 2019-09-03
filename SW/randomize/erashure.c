@@ -1,16 +1,19 @@
 // erashure.c
-// gcc erashure.c -o /media/driveToErase/
-// ./erashure 
+// gcc erashure.c -o erashure
+// ./erashure
+
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <stdio.h>
 #include <time.h>
 
 char randChar255(){
 	int r = rand();
 	return r%256;
-//	return r%10 + '0';
 }
 
-int setFilename(char **fn, int start, int d){
+int setFilename(char *fn, int start, int d){
 	int i, r, len=0, v=abs(d);
 	char str[255];
 	char *filename = fn;
@@ -28,9 +31,9 @@ int setFilename(char **fn, int start, int d){
 	return len;
 }
 
-void writeRandomFile(char **filename, int len){
+void writeRandomFile(char *filename, int len){
 	int i;
-	int fd;
+	FILE *fd;
 	char c;
 	fd = fopen(filename,"w+");
 	for(i=0; i<len; ++i){
@@ -40,7 +43,7 @@ void writeRandomFile(char **filename, int len){
 	fclose(fd);
 }
 
-int main(int argc, char **argv){ // ~ 1 GB directories
+int main(int argc, char **argv){ // ~ 1 GB directories: 1k files * 1M chars
 	srand( time(NULL) );
 	int i, j, size;
 	char filename[255];
@@ -49,15 +52,16 @@ int main(int argc, char **argv){ // ~ 1 GB directories
 	int MIN_CHARS_PER_FILE = 1000000;
 	int RAND_CHARS_PER_FILE = 1000;
 	for(j=0;j<MAX_DIRS;++j){
-		size = setFilename(&filename, 0, j);
+		size = setFilename(filename, 0, j);
 		filename[size] = '/';
 		filename[size+1] = '\0';
+		// printf(" %d - %s\n", j, filename);
 		mkdir(filename,0777);
 		printf("DIRECTORY: %s\n",filename);
 		for(i=0;i<MAX_FILES;++i){
-			setFilename(&filename, size+1, i);
-			//printf("FILE: %s\n",filename);
-			writeRandomFile(&filename,(rand()%RAND_CHARS_PER_FILE )+MIN_CHARS_PER_FILE);
+			setFilename(filename, size+1, i);
+			// printf("FILE: %s\n",filename);
+			writeRandomFile(filename,(rand()%RAND_CHARS_PER_FILE )+MIN_CHARS_PER_FILE);
 		}
 	}
 	return 0;
