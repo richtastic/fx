@@ -42,7 +42,7 @@ sudo mv /etc/apt/sources.list.2014_10_14 /etc/apt/sources.list
 # https://alselectro.wordpress.com/2014/03/30/ubuntu-13-10solution-to-broken-packages-problem/
 
 sudo apt-get autoremove
-sudo dpkg --configure -a 
+sudo dpkg --configure -a
 
 # http://askubuntu.com/questions/124017/how-do-i-restore-the-default-repositories
 sudo software-properties-gtk
@@ -61,7 +61,7 @@ sudo apt-get update -o Acquire::http::No-Cache=true
 #### get drive UUID
 ```
 sudo blkid /dev/sdc1
-# /dev/sdc1: UUID="d836ce9e-f154-4a2b-b8a0-01f1e4012615" TYPE="ext4" 
+# /dev/sdc1: UUID="d836ce9e-f154-4a2b-b8a0-01f1e4012615" TYPE="ext4"
 ```
 
 #### add entry to fstab (file system table)
@@ -165,7 +165,7 @@ sudo chmod 755 /media/phoebe
 sudo chmod 755 /media/phoebe/universe/
 tail -f /var/log/apache2/error.log
 sudo ln -s /media/phoebe/universe/repo/ff /var/www/html/ff
-sudo vi /etc/apache2/apache2.conf 
+sudo vi /etc/apache2/apache2.conf
 ...
 # buncho random suggestions to try
     Options Indexes FollowSymLinks Includes ExecCGI
@@ -187,14 +187,14 @@ sudo service apache2 restart
 #### apache mac
 ```
 # https://jason.pureconcepts.net/2012/10/install-apache-php-mysql-mac-os-x/
-sudo su 
+sudo su
 apachectl start
 cd /etc/apache2/
 cp httpd.conf httpd.conf.bak
 vi httpd.conf
 LoadModule php5_module libexec/apache2/libphp5.so # uncomment
 apachectl restart
-# ROOT: 
+# ROOT:
 /Library/WebServer/Documents/
  sudo ln -s ~/dev/extRepos/ff/src/ /Library/WebServer/Documents/ff
 ```
@@ -260,7 +260,7 @@ mysql -u"richie" -p"qwerty" quiz < ./data.sql
 ```
 # http://www.blender.org/download/
 wget http://ftp.nluug.nl/pub/graphics/blender/release/Blender2.72/blender-2.72b-linux-glibc211-x86_64.tar.bz2
-tar -vxf ./blender-2.72b-linux-glibc211-x86_64.tar.bz2 
+tar -vxf ./blender-2.72b-linux-glibc211-x86_64.tar.bz2
 mv ./blender-2.72b-linux-glibc211-x86_64 /opt/
 ln -s /opt/blender-2.72b-linux-glibc211-x86_64/blender /opt/blender
 sudo ln -s /opt/blender /usr/bin/blender
@@ -274,7 +274,7 @@ tar -vxf ./sublime_text_3_build_3065_x64.tar.bz2
 mv sublime_text_3/ /opt/
 ln -s /opt/sublime_text_3/sublime_text /opt/sublime
 ln -s /opt/sublime /usr/bin/sublime
-sudo chmod 777 ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings 
+sudo chmod 777 ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 ```
 
 #### ssh keys
@@ -363,7 +363,7 @@ http://askubuntu.com/questions/453368/skype-error-while-loading-shared-libraries
 
 #### skype crap that was a pain in the ass
 ```
- sudo dpkg --force-depends -i ./skype-ubuntu-precise_4.3.0.37-1_i386.deb 
+ sudo dpkg --force-depends -i ./skype-ubuntu-precise_4.3.0.37-1_i386.deb
 
  sudo dpkg --configure -a
 
@@ -373,7 +373,7 @@ http://askubuntu.com/questions/453368/skype-error-while-loading-shared-libraries
  sudo apt-get install libv4l-0:i386
 
 sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
-sudo apt-get update 
+sudo apt-get update
 sudo apt-get install skype
 
 # http://askubuntu.com/questions/293693/how-to-install-skype-with-ubuntu-13-04
@@ -387,27 +387,6 @@ usb-creator-gtk
 > choose to USB
 ```
 
-#### formatting xubuntu drive example:
-```
-# find out where things are mounted
-cat /proc/mounts
-mount -l
-# unmount partition
-sudo umount /dev/sda1
-# create new partition if desired
-sudo fdisk /dev/sda
-...
-# format to ext4
-mkfs.ext4 /dev/sda1
-# remount
-sudo mount /dev/sda1 /media/phoebe/media/
-# permissions
-sudo chmod -R 0777 /media/phoebe/media/
-# open
-thunar /media/phoebe/media/
-```
-
-
 #### randomize HDD
 ```
 ...
@@ -418,6 +397,12 @@ erashure.c
 
 #### formatting HDD
 ```
+# find out where things are mounted
+cat /proc/mounts
+mount -l
+# unmount partition
+sudo umount /dev/sda1
+
 # https://ext4.wiki.kernel.org/index.php/Ext4_Howto
 # show current disk info
 sudo fdisk -l /dev/sdf1
@@ -472,6 +457,7 @@ p
 /dev/sdf1p2      1953514528  3907029055   976757264   83  Linux
 ...
 
+### HAVE FDISK FORMAT:
 # change listed type (l to list all hex codes)
 # 7 for HPFS/NTFS/exFAT
 # first
@@ -491,6 +477,11 @@ sudo shutdown -r now # need to restart and do it all again
 # when done linux SHOULD now show all the new partitions as: /dev/sdf1, /dev/sdf2, ...
 
 
+
+
+# format to ext4
+mkfs.ext4 /dev/sda1
+
 # simple (fast) allocation with disk name/label
 sudo mkfs.ntfs --verbose --label Antiquity --fast /dev/sdf1
 sudo mkfs.ntfs --verbose --label Memento   --fast /dev/sdf2
@@ -504,10 +495,44 @@ sudo mkfs.ntfs --verbose --label Memento   --fast /dev/sdf2
 ```
 format | max drive size | max file size | max no files |
 ----------------------
-FAT16 | 4GB | 2^32 - 1 bytes | 2^16 | 
-FAT32 | 32GB | 2^32 - 1 bytes | ~4 million | 
+FAT16 | 4GB | 2^32 - 1 bytes | 2^16 |
+FAT32 | 32GB | 2^32 - 1 bytes | ~4 million |
 NTFS  | 2^64 alloc. units (2^32 implementation) | 2^64 bytes (2^44 bytes implementation) | 2^32 - 1
 ```
+
+
+#### Permissions
+```
+# remount
+sudo mount /dev/sda1 /media/phoebe/media/
+# permissions -everyone
+sudo chmod -R 0777 /media/phoebe/media/
+# open
+thunar /media/phoebe/media/
+
+
+
+# PER-GROUP access:
+CREATE USER GROUP:
+ sudo groupadd hdd_rw
+ADD USER TO GROUP
+ sudo usermod -a -G hdd_rw giau
+VERIFY
+grep hdd_rw /etc/group
+
+CHANGE GROUP OWNERSHIP OF FILE/DIR
+ sudo chgrp hdd_rw /media/multiverse
+
+ADD WRITE PERMISSIONS TO DIR
+ ls -lah /media/multiverse/
+
+
+$ stat -c "%U %G" /media/multiverse
+
+sudo mount -o remount,uid=1000,gid=1000,rw /dev/sdc1
+
+```
+
 
 
 #### rvm | ruby | gems
@@ -533,8 +558,8 @@ rvm use sytem
 
 # switch to ruby version
 rvm rubies
-rvm use ruby-2.1.2 
-rvm use ruby-2.2.0 
+rvm use ruby-2.1.2
+rvm use ruby-2.2.0
 
 # gemsets - https://rvm.io/gemsets/basics
 rvm gemset create default
@@ -628,7 +653,7 @@ convert in.jpg -separate outRGB.png # red | green | blue as greyscale
 #### image compression
 ```
 sudo apt-get install trimage
-trimage -f ./main.png 
+trimage -f ./main.png
 
 # https://github.com/pornel/pngquant
 apt-get install libpng-dev
@@ -648,8 +673,8 @@ make
 # https://github.com/technopagan/adept-jpg-compressor
 # https://github.com/kud/jpegrescan
 # http://googledevelopers.blogspot.co.uk/2013/02/compress-data-more-densely-with-zopfli.html
-# 
-# 
+#
+#
 ```
 
 
@@ -680,7 +705,7 @@ sudo apt-get install simplescreenrecorder
 sudo apt-get install simplescreenrecorder-lib:i386
 
 # something else
-sudo apt-get install recordmydesktop 
+sudo apt-get install recordmydesktop
 ```
 
 ### AUDIO STUFFS:
@@ -691,7 +716,7 @@ sudo apt-get install xfce4-mixer    indicator-sound-gtk2
 
 pulseaudio -k
 
-sudo apt-get install paprefs 
+sudo apt-get install paprefs
 
 xfce4-mixer
 sudo apt-get install xfce4-mixer
@@ -731,7 +756,7 @@ watch -n 1   ls .
 sudo apt-get install git
 # force untracked files overwrite:
 git fetch --all
-git reset --hard origin/master 
+git reset --hard origin/master
 
 # example project/.gitignore
 
@@ -970,7 +995,7 @@ EndSection
 #### xubuntu default applications
 ```
 sudo chmod 775 ~/.local/share/applications
-~/.local/share/applications/mimeapps.list 
+~/.local/share/applications/mimeapps.list
 ~/.local/share/applications/defaults.list
 ```
 
@@ -979,10 +1004,10 @@ sudo chmod 775 ~/.local/share/applications
 ```
 vi ~/.gtkrc-2.0
 # .gtkrc-2.0
-gtk-menu-popup-delay = 0 
-gtk-menu-popdown-delay = 0 
-gtk-menu-bar-popup-delay = 0 
-gtk-enable-animations = 0 
+gtk-menu-popup-delay = 0
+gtk-menu-popdown-delay = 0
+gtk-menu-bar-popup-delay = 0
+gtk-enable-animations = 0
 gtk-timeout-expand = 0
 gtk-timeout-initial = 0
 gtk-timeout-repeat = 0
@@ -1189,7 +1214,7 @@ XFCE: http://mirror.pnl.gov/ubuntu//pool/universe/x/xfce4-session/xfce4-session_
 
 dpkg -l | grep -i flash
 
- xfce4-session 
+ xfce4-session
 
 http://support.mozilla.org/en-US/kb/install-firefox-linux
 
@@ -1299,7 +1324,7 @@ vi wp-config.php # db user pass
 
 ```
 # /etc/php5/apache2/php.ini
-# /etc/php/7.0/apache2/php.ini 
+# /etc/php/7.0/apache2/php.ini
 # extension_dir = "/usr/lib/php5/20131226"
 # extension_dir = "/usr/lib/php5/20151012" # unnecessary
 extension=mysql.so
@@ -1323,10 +1348,10 @@ dpkg --list | grep php.*mysql
 http://phpcodechecker.com/
 # JSON PARSER CHECKER
 jsonlint.com
-# 
+#
 
 ```
- 
+
 
 
 ### ENCRYPTION / DECRYPTION
@@ -1360,6 +1385,3 @@ openssl aes-256-cbc  -d  -kfile decrypted_aes  -in ./encrypted_data.txt -out dec
 openssl aes-256-cbc  -kfile aes_password  -in ./data.txt -out encrypted_data.txt
 openssl aes-256-cbc  -d  -kfile aes_password  -in ./encrypted_data.txt -out decrypted_data.txt
  ```
-
-
-
